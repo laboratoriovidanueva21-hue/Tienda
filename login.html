@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Telgico📱</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .remember-me label {
+            margin-bottom: 0;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-left: 4px solid #c62828;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-credentials {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .demo-credentials p {
+            margin: 5px 0;
+        }
+
+        .purchase-notice {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #1565c0;
+        }
+
+        .purchase-notice strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+    <div class="login-box">
+            <div class="login-header">
+                <h1>Telgico 📱</h1>
+                <p>Inicia sesión en tu cuenta</p>
+            </div>
+
+            <div class="demo-credentials">
+                <p><strong>Credenciales de prueba:</strong></p>
+                <p>Email: usuario@telgico.com</p>
+                <p>Contraseña: 123456</p>
+            </div>
+
+            <div class="purchase-notice" id="purchaseNotice" style="display: none;">
+                <strong>🛒 Compra Requerida</strong>
+                Debes iniciar sesión para completar tu compra
+            </div>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="tu@email.com" 
+                        required
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Tu contraseña" 
+                        required
+                    />
+                </div>
+
+                <div class="remember-me">
+                    <input 
+                        type="checkbox" 
+                        id="rememberMe"
+                    />
+                    <label for="rememberMe">Recuérdame</label>
+                </div>
+
+                <button type="submit" class="login-btn">Iniciar Sesión</button>
+
+                <div class="signup-link">
+                    ¿No tienes cuenta? <a href="#" onclick="goToSignup(event)">Regístrate aquí</a>
+                </div>
+            </form>
+
+            <div class="back-home">
+                <a href="Index.html">← Volver a la tienda</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Usuarios registrados (simulado - en producción esto estaría en una BD)
+        const registeredUsers = [
+            { email: 'usuario@telgico.com', password: '123456', name: 'Usuario Demo' },
+            { email: 'test@telgico.com', password: 'password123', name: 'Test User' }
+        ];
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Limpiar mensajes previos
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            // Validación básica
+            if (!email || !password) {
+                showError('Por favor completa todos los campos');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showError('Por favor ingresa un email válido');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            // Verificar credenciales
+            const user = registeredUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Login exitoso
+                const userData = {
+                    email: user.email,
+                    name: user.name,
+                    loginTime: new Date().toISOString()
+                };
+
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                console.log('Guardando currentUser:', userData);
+                console.log('Verificando localStorage:', localStorage.getItem('currentUser'));
+                
+                if (rememberMe) {
+                    localStorage.setItem('rememberMe', 'true');
+                    localStorage.setItem('rememberedEmail', email);
+                }
+
+                showSuccess(`¡Bienvenido ${user.name}!`);
+                
+                // Redirigir después de 1.5 segundos
+                setTimeout(() => {
+                    // Verificar si fue redirigido desde checkout
+                    const params = new URLSearchParams(window.location.search);
+                    const redirectTo = params.get('redirectTo');
+                    
+                    if (redirectTo === 'checkout') {
+                        window.location.href = 'checkout.html';
+                    } else {
+                        window.location.href = 'Index.html';
+                    }
+                }, 1500);
+            } else {
+                showError('Email o contraseña incorrectos');
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.textContent = message;
+            successMessage.style.display = 'block';
+        }
+
+        function goToSignup(event) {
+            event.preventDefault();
+            alert('Función de registro aún en desarrollo. Por ahora, usa las credenciales de prueba.');
+        }
+
+        // Cargar email recordado si existe
+        window.addEventListener('DOMContentLoaded', () => {
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail) {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+
+            // Verificar si viene de una intención de compra
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('redirectTo') === 'checkout') {
+                document.getElementById('purchaseNotice').style.display = 'block';
+            }
+
+            // Verificar si el usuario ya está logueado
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                // Redirigir a la página de inicio si ya está logueado
+                window.location.href = 'Index.html';
+            }
+        });
+
+        // Cerrar sesión cuando se cierra la ventana (si "Recuérdame" no está marcado)
+        window.addEventListener('beforeunload', () => {
+            const rememberMe = localStorage.getItem('rememberMe');
+            if (rememberMe !== 'true') {
+                localStorage.removeItem('currentUser');
+            }
+        });
+    </script>
+</body>
+</html>

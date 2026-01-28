@@ -1,0 +1,134 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    CÓDIGOS DE DESCUENTO - TELGICO MÓVIL 📱
+═══════════════════════════════════════════════════════════════════════════════
+
+Estos códigos de descuento están disponibles para aplicar en el proceso de pago
+(checkout.html). Los clientes pueden usarlos para obtener descuentos en sus compras.
+
+───────────────────────────────────────────────────────────────────────────────
+CÓDIGOS DE DESCUENTO DISPONIBLES
+───────────────────────────────────────────────────────────────────────────────
+
+1. BIENVENIDA10
+   Descuento: 10%
+   Descripción: Bienvenida para nuevos clientes
+   Ejemplo: Compra de $100 → $90 (ahorra $10)
+
+2. SUMMER20
+   Descuento: 20%
+   Descripción: Promoción de verano
+   Ejemplo: Compra de $100 → $80 (ahorra $20)
+
+3. VIP30
+   Descuento: 30%
+   Descripción: Clientes VIP y cliente frecuentes
+   Ejemplo: Compra de $100 → $70 (ahorra $30)
+
+4. TELGICO15
+   Descuento: 15%
+   Descripción: Descuento especial Telgico
+   Ejemplo: Compra de $100 → $85 (ahorra $15)
+
+5. MEGA50
+   Descuento: 50%
+   Descripción: Megaoferta excepcional (promociones especiales)
+   Ejemplo: Compra de $100 → $50 (ahorra $50)
+
+6. MEGA90
+   Descuento: 90%
+   Descripción: Descuento extremádamente alto (promoción especial limitada)
+   Ejemplo: Compra de $100 → $10 (ahorra $90)
+
+7. GRATIS100
+   Descuento: 100%
+   Descripción: Compra completamente gratis (promoción exclusiva)
+   Ejemplo: Compra de $100 → $0 (ahorra $100)
+
+───────────────────────────────────────────────────────────────────────────────
+CÓMO USAR LOS CÓDIGOS
+───────────────────────────────────────────────────────────────────────────────
+
+1. Agregar productos al carrito
+2. Ir a Procesamiento de Pago (Checkout)
+3. En la sección "💰 Tengo un Código de Descuento":
+   - Ingresar el código (ej: SUMMER20)
+   - Hacer clic en el botón "Aplicar"
+4. El descuento se aplicará automáticamente
+5. El total se recalculará mostrando:
+   - Subtotal
+   - Descuento aplicado
+   - Total final
+
+───────────────────────────────────────────────────────────────────────────────
+CARACTERÍSTICAS DEL SISTEMA
+───────────────────────────────────────────────────────────────────────────────
+
+✓ Validación de códigos: Solo se aceptan códigos válidos
+✓ Mensajes informativos: Se muestra éxito o error según corresponda
+✓ Desglose de precios: Subtotal, descuento y total final claramente visible
+✓ Confirmación: El descuento aplicado se muestra en la página de confirmación
+✓ Persistencia: El código utilizado se guarda en la orden final
+
+───────────────────────────────────────────────────────────────────────────────
+EJEMPLOS DE USO
+───────────────────────────────────────────────────────────────────────────────
+
+Ejemplo 1: Cliente con SUMMER20
+  Productos en carrito:
+  - iPhone 13 Pro: $999
+  - Total: $999
+  
+  Código aplicado: SUMMER20 (20% descuento)
+  - Subtotal: $999.00
+  - Descuento (20%): -$199.80
+  - Total a pagar: $799.20
+  
+  ¡Ahorro: $199.80!
+
+Ejemplo 2: Cliente con VIP30
+  Productos en carrito:
+  - Samsung Galaxy S21: $799
+  - AirPods Pro: $249
+  - Total: $1,048
+  
+  Código aplicado: VIP30 (30% descuento)
+  - Subtotal: $1,048.00
+  - Descuento (30%): -$314.40
+  - Total a pagar: $733.60
+  
+  ¡Ahorro: $314.40!
+
+───────────────────────────────────────────────────────────────────────────────
+NOTAS IMPORTANTES
+───────────────────────────────────────────────────────────────────────────────
+
+• Solo se puede aplicar UN código de descuento por compra
+• Los códigos son sensibles a mayúsculas/minúsculas (se convierten automáticamente)
+• El descuento se calcula sobre el subtotal
+• Los errores de código muestran un mensaje claro
+• El descuento se cancela si el usuario intenta aplicar otro código
+
+───────────────────────────────────────────────────────────────────────────────
+ADMINISTRACIÓN DE CÓDIGOS
+───────────────────────────────────────────────────────────────────────────────
+
+Para agregar nuevos códigos de descuento:
+1. Abrir checkout.html
+2. Localizar el objeto "discountCodes"
+3. Agregar una nueva línea con el patrón:
+   'CODONUEVO': porcentaje
+4. Ejemplo: 'PROMOCION25': 25
+
+   const discountCodes = {
+       'BIENVENIDA10': 10,
+       'SUMMER20': 20,
+       'VIP30': 30,
+       'TELGICO15': 15,
+       'MEGA50': 50,
+       'PROMOCION25': 25  // ← Nuevo código
+   };
+
+═══════════════════════════════════════════════════════════════════════════════
+Fecha de actualización: 2024
+Tienda: Telgico Móvil 📱
+═══════════════════════════════════════════════════════════════════════════════

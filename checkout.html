@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Telgico📱</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .checkout-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        .order-summary {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: right;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 2px solid #667eea;
+        }
+
+        .discount-section {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #d0d8ff;
+        }
+
+        .discount-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .discount-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d0d8ff;
+            border-radius: 5px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .discount-input-group button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .discount-input-group button:hover {
+            background-color: #764ba2;
+        }
+
+        .discount-message {
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .discount-message.success {
+            color: #2e7d32;
+            background-color: #e8f5e9;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #2e7d32;
+            display: block;
+        }
+
+        .discount-message.error {
+            color: #c62828;
+            background-color: #ffebee;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #c62828;
+            display: block;
+        }
+
+        .discount-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .payment-methods {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .payment-methods h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .payment-option {
+            margin-bottom: 15px;
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .payment-option label {
+            display: inline;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-pay {
+            flex: 1;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-pay:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background-color: #6c757d;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container">
+            <div class="logo">📱 TechMóvil</div>
+            <nav>
+                <a href="Index.html">Inicio</a>
+                <a href="Index.html#productos">Productos</a>
+                <a href="Index.html#ofertas">Ofertas</a>
+                <a href="Index.html#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="checkout-container">
+            <h1 class="checkout-title">Procesamiento de Pago</h1>
+            
+            <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 10px; border-radius: 5px; margin-bottom: 15px; display: none;" id="debugInfo">
+                <small id="debugText"></small>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                ✓ ¡Pago procesado exitosamente! Serás redirigido en breve...
+            </div>
+
+            <div class="order-summary">
+                <h3>Resumen del Pedido</h3>
+                <div id="orderItems"></div>
+                <div id="priceBreakdown" style="display: none; margin-top: 15px;">
+                    <div class="price-row subtotal">
+                        <span>Subtotal:</span>
+                        <span id="subtotalAmount">$0.00</span>
+                    </div>
+                    <div class="price-row discount-amount">
+                        <span id="discountLabel">Descuento:</span>
+                        <span id="discountAmount">-$0.00</span>
+                    </div>
+                </div>
+                <div class="order-total" id="orderTotal">Total: $0</div>
+            </div>
+
+            <!-- Sección de Código de Descuento -->
+            <div class="discount-section">
+                <h4 style="margin: 0 0 10px 0; color: #667eea;">💰 Tengo un Código de Descuento</h4>
+                <div class="discount-input-group">
+                    <input type="text" id="discountCode" placeholder="Ingresa tu código de descuento" />
+                    <button type="button" onclick="applyDiscount()">Aplicar</button>
+                </div>
+                <div id="discountMessage" class="discount-message"></div>
+                <div class="discount-info">
+                    <strong>Códigos disponibles:</strong>
+                    <ul style="margin: 8px 0 0 20px; font-size: 14px;">
+                        <li>BIENVENIDA10 - 10% descuento</li>
+                        <li>SUMMER20 - 20% descuento</li>
+                        <li>VIP30 - 30% descuento</li>
+                        <li>TELGICO15 - 15% descuento</li>
+                        <li>MEGA50 - 50% descuento</li>
+                        <li>MEGA90 - 90% descuento</li>
+                        <li>GRATIS100 - 100% descuento</li>
+                    </ul>
+                </div>
+            </div>
+
+            <form id="paymentForm" onsubmit="processPayment(event)">
+                <h3 style="margin-bottom: 20px; color: #333;">Información de Entrega</h3>
+
+                <div class="form-group">
+                    <label for="fullName">Nombre Completo *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono *</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Dirección *</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">Ciudad *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Código Postal *</label>
+                        <input type="text" id="zipCode" name="zipCode" required>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 20px 0; color: #333;">Método de Pago</h3>
+
+                <div class="payment-methods">
+                    <div class="payment-option">
+                        <input type="radio" id="credit" name="paymentMethod" value="Tarjeta de Crédito" checked>
+                        <label for="credit">💳 Tarjeta de Crédito</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="debit" name="paymentMethod" value="Tarjeta de Débito">
+                        <label for="debit">💳 Tarjeta de Débito</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="transfer" name="paymentMethod" value="Transferencia Bancaria">
+                        <label for="transfer">🏦 Transferencia Bancaria</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="paypal" name="paymentMethod" value="PayPal">
+                        <label for="paypal">🌐 PayPal</label>
+                    </div>
+                </div>
+
+                <div id="cardFields" style="margin: 20px 0;">
+                    <div class="form-group">
+                        <label for="cardNumber">Número de Tarjeta *</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Vencimiento (MM/YY) *</label>
+                            <input type="text" id="expiry" name="expiry" placeholder="12/25" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV *</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-pay">Pagar Ahora</button>
+                    <a href="Index.html" class="btn-cancel">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px;">
+        <div class="container">
+            <div>
+                <h4>Sobre Nosotros</h4>
+                <p>TechMóvil es tu tienda de confianza para adquirir los mejores celulares del mercado con precios competitivos y excelente servicio al cliente.</p>
+            </div>
+            <div>
+                <h4>Enlaces Rápidos</h4>
+                <p><a href="Index.html">Productos</a></p>
+                <p><a href="Index.html#ofertas">Ofertas</a></p>
+                <p><a href="Index.html#contacto">Contacto</a></p>
+            </div>
+            <div class="contact-info">
+                <h4>Contacto</h4>
+                <p>📞 +593 99 999 999</p>
+                <p>📧 Laboratoriovidanueva21@gmail.com</p>
+                <p>📍 Av. Pedro Vicente Maldonado S58-34</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar datos del carrito y variables globales
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let orderTotal = 0;
+        let discountApplied = 0;
+        let discountCode = '';
+
+        // Códigos de descuento disponibles
+        const discountCodes = {
+            'BIENVENIDA10': 10,
+            'SUMMER20': 20,
+            'VIP30': 30,
+            'TELGICO15': 15,
+            'MEGA50': 50,
+            'MEGA90': 90,
+            'GRATIS100': 100
+        };
+
+        // Verificar si el usuario está logueado AL CARGAR LA PÁGINA
+        window.addEventListener('DOMContentLoaded', () => {
+            // Pequeño delay para asegurar que localStorage esté disponible
+            setTimeout(() => {
+                const currentUser = localStorage.getItem('currentUser');
+                console.log('CurrentUser en checkout:', currentUser); // Debug
+                console.log('Todas las claves localStorage:', Object.keys(localStorage)); // Debug
+                
+                // Mostrar info de debug (comentar después de verificar)
+                const debugInfo = document.getElementById('debugInfo');
+                const debugText = document.getElementById('debugText');
+                debugText.textContent = `localStorage.currentUser: ${currentUser ? 'SÍ EXISTE' : 'NO EXISTE'} | Total keys: ${Object.keys(localStorage).length}`;
+                debugInfo.style.display = 'block';
+                
+                if (!currentUser) {
+                    console.error('No hay usuario logueado, redirigiendo a login');
+                    setTimeout(() => {
+                        alert('Debes iniciar sesión para realizar una compra');
+                        window.location.href = 'login.html?redirectTo=checkout';
+                    }, 500);
+                    return;
+                }
+
+                // Si el usuario está logueado, cargar el resumen del pedido
+                console.log('Usuario logueado, cargando pedido');
+                loadOrderSummary();
+            }, 100);
+        });
+
+        function loadOrderSummary() {
+            const orderItemsDiv = document.getElementById('orderItems');
+            const orderTotalDiv = document.getElementById('orderTotal');
+
+            if (cart.length === 0) {
+                orderItemsDiv.innerHTML = '<p>Tu carrito está vacío</p>';
+                return;
+            }
+
+            let total = 0;
+            orderItemsDiv.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'order-item';
+                itemDiv.innerHTML = `
+                    <span>${item.name} x${item.quantity}</span>
+                    <span>$${itemTotal.toFixed(2)}</span>
+                `;
+                orderItemsDiv.appendChild(itemDiv);
+            });
+
+            orderTotal = total;
+            updateOrderTotal();
+        }
+
+        function updateOrderTotal() {
+            const orderTotalDiv = document.getElementById('orderTotal');
+            const priceBreakdown = document.getElementById('priceBreakdown');
+            const subtotalAmount = document.getElementById('subtotalAmount');
+            const discountAmount = document.getElementById('discountAmount');
+
+            let finalTotal = orderTotal;
+
+            if (discountApplied > 0) {
+                const discountValue = (orderTotal * discountApplied) / 100;
+                finalTotal = orderTotal - discountValue;
+
+                subtotalAmount.textContent = `$${orderTotal.toFixed(2)}`;
+                discountAmount.textContent = `-$${discountValue.toFixed(2)}`;
+                priceBreakdown.style.display = 'block';
+            } else {
+                priceBreakdown.style.display = 'none';
+                discountCode = '';
+            }
+
+            orderTotalDiv.innerHTML = `<div style="font-size: 28px;">Total: $${finalTotal.toFixed(2)}</div>`;
+        }
+
+        function applyDiscount() {
+            const codeInput = document.getElementById('discountCode');
+            const code = codeInput.value.trim().toUpperCase();
+            const discountMessage = document.getElementById('discountMessage');
+
+            // Limpiar mensajes previos
+            discountMessage.className = 'discount-message';
+            discountMessage.textContent = '';
+
+            if (!code) {
+                discountMessage.classList.add('error');
+                discountMessage.textContent = '❌ Por favor ingresa un código de descuento';
+                return;
+            }
+
+            if (discountCodes.hasOwnProperty(code)) {
+                discountApplied = discountCodes[code];
+                discountCode = code;
+                const discountValue = (orderTotal * discountApplied) / 100;
+
+                discountMessage.classList.add('success');
+                discountMessage.textContent = `✅ ¡Código aplicado! Ahorras $${discountValue.toFixed(2)} (${discountApplied}% de descuento)`;
+                
+                codeInput.value = '';
+                updateOrderTotal();
+            } else {
+                discountApplied = 0;
+                discountCode = '';
+                discountMessage.classList.add('error');
+                discountMessage.textContent = '❌ Código inválido. Intenta con: BIENVENIDA10, SUMMER20, VIP30, MEGA50, MEGA90, GRATIS100';
+                updateOrderTotal();
+            }
+        }
+
+        function formatCardNumber(value) {
+            return value.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        }
+
+        function formatExpiry(value) {
+            return value.replace(/\D/g, '').replace(/(\d{2})(\d{0,2})/, '$1/$2').substr(0, 5);
+        }
+
+        // Event listeners para formatear campos
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            e.target.value = formatCardNumber(e.target.value);
+        });
+
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            e.target.value = formatExpiry(e.target.value);
+        });
+
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substr(0, 3);
+        });
+
+        // Mostrar/ocultar campos de tarjeta
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardFields = document.getElementById('cardFields');
+                cardFields.style.display = this.value.includes('Tarjeta') ? 'block' : 'none';
+            });
+        });
+
+        function processPayment(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            if (!fullName || !email) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+
+            // Mostrar mensaje de éxito
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            // Calcular el total final con descuento
+            let finalTotal = orderTotal;
+            if (discountApplied > 0) {
+                finalTotal = orderTotal - ((orderTotal * discountApplied) / 100);
+            }
+
+            // Guardar información del pedido
+            const orderInfo = {
+                customerName: fullName,
+                customerEmail: email,
+                paymentMethod: paymentMethod,
+                orderDate: new Date().toLocaleString(),
+                subtotal: orderTotal,
+                discountApplied: discountApplied,
+                discountCode: discountCode,
+                total: finalTotal,
+                items: cart
+            };
+
+            localStorage.setItem('lastOrder', JSON.stringify(orderInfo));
+
+            // Limpiar carrito
+            localStorage.setItem('cart', JSON.stringify([]));
+
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'confirmation.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

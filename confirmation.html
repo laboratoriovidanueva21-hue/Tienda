@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Compra - Telgico📱</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .confirmation-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .confirmation-title {
+            font-size: 32px;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .confirmation-message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .detail-value {
+            color: #666;
+        }
+
+        .order-total {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-home,
+        .btn-products {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-home {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .btn-home:hover {
+            background-color: #764ba2;
+        }
+
+        .btn-products {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-products:hover {
+            background-color: #218838;
+        }
+
+        .tracking-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .tracking-info strong {
+            color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container">
+            <div class="logo">📱 TechMóvil</div>
+            <nav>
+                <a href="Index.html">Inicio</a>
+                <a href="Index.html#productos">Productos</a>
+                <a href="Index.html#ofertas">Ofertas</a>
+                <a href="Index.html#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="confirmation-container">
+            <div class="success-icon">✓</div>
+            <h1 class="confirmation-title">¡Compra Exitosa!</h1>
+            
+            <div class="confirmation-message">
+                <p>Tu pedido ha sido procesado correctamente.</p>
+                <p>Recibirás un correo de confirmación en breve.</p>
+            </div>
+
+            <div class="order-details" id="orderDetails">
+                <!-- Los detalles del pedido se cargarán aquí -->
+            </div>
+
+            <div class="tracking-info">
+                <strong>📦 Información de Envío:</strong>
+                <p style="margin: 10px 0 0 0;">Tu pedido será entregado en 2-5 días hábiles. Recibirás un número de seguimiento por correo electrónico.</p>
+            </div>
+
+            <div class="button-group">
+                <a href="Index.html" class="btn-home">🏠 Volver a Inicio</a>
+                <a href="Index.html#productos" class="btn-products">🛍️ Seguir Comprando</a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 80px;">
+        <div class="container">
+            <div>
+                <h4>Sobre Nosotros</h4>
+                <p>TechMóvil es tu tienda de confianza para adquirir los mejores celulares del mercado con precios competitivos y excelente servicio al cliente.</p>
+            </div>
+            <div>
+                <h4>Enlaces Rápidos</h4>
+                <p><a href="Index.html">Productos</a></p>
+                <p><a href="Index.html#ofertas">Ofertas</a></p>
+                <p><a href="Index.html#contacto">Contacto</a></p>
+            </div>
+            <div class="contact-info">
+                <h4>Contacto</h4>
+                <p>📞 +593 99 999 999</p>
+                <p>📧 Laboratoriovidanueva21@gmail.com</p>
+                <p>📍 Av. Pedro Vicente Maldonado S58-34</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function loadOrderDetails() {
+            const orderDetails = document.getElementById('orderDetails');
+            const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+
+            if (!lastOrder) {
+                orderDetails.innerHTML = '<p>No hay información de pedido disponible</p>';
+                return;
+            }
+
+            let itemsHTML = '';
+            lastOrder.items.forEach(item => {
+                itemsHTML += `
+                    <div class="detail-row">
+                        <span class="detail-label">${item.name} x${item.quantity}</span>
+                        <span class="detail-value">$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            const orderNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+
+            // Crear el resumen de precios
+            let priceBreakdownHTML = '';
+            if (lastOrder.discountApplied && lastOrder.discountApplied > 0) {
+                const discountAmount = (lastOrder.subtotal * lastOrder.discountApplied) / 100;
+                priceBreakdownHTML = `
+                    <div class="detail-row" style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <span class="detail-label">Subtotal:</span>
+                        <span class="detail-value">$${lastOrder.subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="detail-row" style="background: #d4edda; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                        <span class="detail-label">Descuento (${lastOrder.discountApplied}% - ${lastOrder.discountCode}):</span>
+                        <span class="detail-value">-$${discountAmount.toFixed(2)}</span>
+                    </div>
+                `;
+            }
+
+            orderDetails.innerHTML = `
+                <div class="detail-row">
+                    <span class="detail-label">Número de Pedido:</span>
+                    <span class="detail-value">#${orderNumber}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cliente:</span>
+                    <span class="detail-value">${lastOrder.customerName}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Correo:</span>
+                    <span class="detail-value">${lastOrder.customerEmail}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Método de Pago:</span>
+                    <span class="detail-value">${lastOrder.paymentMethod}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">${lastOrder.orderDate}</span>
+                </div>
+                <div style="border-top: 2px solid #667eea; padding-top: 15px; margin-top: 15px;">
+                    <h4 style="margin-bottom: 10px;">Productos:</h4>
+                    ${itemsHTML}
+                </div>
+                ${priceBreakdownHTML}
+                <div class="order-total">
+                    Total: $${lastOrder.total.toFixed(2)}
+                </div>
+            `;
+        }
+
+        loadOrderDetails();
+    </script>
+</body>
+</html>

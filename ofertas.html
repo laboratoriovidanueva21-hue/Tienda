@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas 20% - Telgico📱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container">
+            <div class="logo">Telgico📱</div>
+            <nav>
+                <a href="Index.html">Inicio</a>
+                <a href="Index.html#productos">Productos Destacados</a>
+                <a href="catalog.html">Catálogo</a>
+                <a href="Index.html#contacto">Contacto</a>
+                <a href="login.html" id="loginLink" class="nav-link-login">Iniciar Sesión</a>
+                <span id="userInfo" style="display: none; color: white; margin-left: 20px;">
+                    <span id="userName"></span>
+                    <a href="#" onclick="logout(event)" style="color: #ff6b6b; margin-left: 10px; text-decoration: none;">Salir</a>
+                </span>
+                <span class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección de Ofertas -->
+    <section class="products-section">
+        <div class="container">
+            <h1 class="section-title">🎉 OFERTAS ESPECIALES - 20% DE DESCUENTO</h1>
+            <p style="text-align: center; color: #666; margin-bottom: 50px;">¡Aprovecha estas increíbles ofertas en nuestros mejores celulares!</p>
+            
+            <div class="products-grid">
+                <!-- Producto 1: iPhone 15 Pro -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1592286927505-1def25115558?w=300&h=300&fit=crop" alt="iPhone 15 Pro">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">iPhone 15 Pro</div>
+                        <div class="product-specs">
+                            • 6.1" Super Retina XDR<br>
+                            • A17 Pro<br>
+                            • 256GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$1,299</span>
+                            <div class="product-price">$1,039.20</div>
+                        </div>
+                        <button onclick="addToCart(1, 'iPhone 15 Pro', 1039.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 2: Samsung Galaxy S24 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1610945415295-d9bbf1149e57?w=300&h=300&fit=crop" alt="Samsung Galaxy S24">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Samsung Galaxy S24</div>
+                        <div class="product-specs">
+                            • 6.2" AMOLED<br>
+                            • Snapdragon 8 Gen 3<br>
+                            • 256GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$999</span>
+                            <div class="product-price">$799.20</div>
+                        </div>
+                        <button onclick="addToCart(2, 'Samsung Galaxy S24', 799.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 3: Google Pixel 8 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1511707267537-b85faf00021e?w=300&h=300&fit=crop" alt="Google Pixel 8">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Google Pixel 8</div>
+                        <div class="product-specs">
+                            • 6.2" OLED<br>
+                            • Google Tensor G3<br>
+                            • 256GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$799</span>
+                            <div class="product-price">$639.20</div>
+                        </div>
+                        <button onclick="addToCart(3, 'Google Pixel 8', 639.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 4: OnePlus 12 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?w=300&h=300&fit=crop" alt="OnePlus 12">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">OnePlus 12</div>
+                        <div class="product-specs">
+                            • 6.7" AMOLED<br>
+                            • Snapdragon 8 Gen 3<br>
+                            • 256GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$749</span>
+                            <div class="product-price">$599.20</div>
+                        </div>
+                        <button onclick="addToCart(4, 'OnePlus 12', 599.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 5: Xiaomi 14 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1511894281048-a01e835e01a3?w=300&h=300&fit=crop" alt="Xiaomi 14">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Xiaomi 14</div>
+                        <div class="product-specs">
+                            • 6.36" AMOLED<br>
+                            • Snapdragon 8 Gen 3<br>
+                            • 512GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$699</span>
+                            <div class="product-price">$559.20</div>
+                        </div>
+                        <button onclick="addToCart(5, 'Xiaomi 14', 559.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+
+                <!-- Producto 6: Samsung Galaxy A55 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="discount-badge">-20%</div>
+                        <img src="https://images.unsplash.com/photo-1511235182850-27ab9c17ae92?w=300&h=300&fit=crop" alt="Samsung Galaxy A55">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Samsung Galaxy A55</div>
+                        <div class="product-specs">
+                            • 6.4" AMOLED<br>
+                            • Exynos 1380<br>
+                            • 256GB Storage
+                        </div>
+                        <div class="product-prices">
+                            <span class="original-price">$549</span>
+                            <div class="product-price">$439.20</div>
+                        </div>
+                        <button onclick="addToCart(6, 'Samsung Galaxy A55', 439.20)">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal del Carrito -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+            <h2>Tu Carrito</h2>
+            <div id="cartItems"></div>
+            <div id="cartEmpty" class="cart-empty">El carrito está vacío</div>
+            <div id="cartTotalContainer" class="cart-total-container" style="display: none;">
+                <div id="cartTotal" class="cart-total">Total: $0.00</div>
+                <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Telgico📱. Todos los derechos reservados.</p>
+            <p>Tienda en línea de celulares de calidad premium</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
